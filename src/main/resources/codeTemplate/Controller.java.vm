@@ -1,0 +1,109 @@
+package ${package}.controller;
+
+import ${package}.entity.${className};
+import ${package}.service.${className}Service;
+import ${package}.utils.PageUtils;
+import ${package}.utils.Query;
+import ${package}.utils.R;
+import ${package}.utils.annotation.SysLog;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import io.swagger.annotations.*;
+
+import java.util.List;
+import java.util.Map;
+
+
+/**
+ * ${comments}
+ * 
+ * @author ${author}
+ * @date ${datetime}
+ */
+@RestController
+@RequestMapping("${pathName}")
+@Api( description="${comments}接口")
+public class ${className}Controller {
+	@Autowired
+	private ${className}Service ${classname}Service;
+
+
+    /**
+    * 列表
+    * @param params
+    * @return
+    */
+    @RequestMapping(value="/list",method = RequestMethod.GET)
+    @RequiresPermissions("${pathName}:list")
+    @ApiOperation(value = "获取${comments}分页列表",response =R.class)
+    @ApiResponses({ @ApiResponse(code = 500,message = "服务器异常",response= R.class)})
+    public R list(@RequestParam Map<String, Object> params){
+        //查询列表数据
+        Query query = new Query(params);
+        List<${className}> list = ${classname}Service.queryList(query);
+        int total = ${classname}Service.queryTotal(query);
+        PageUtils pageUtil = new PageUtils(list, total, query.getLimit(), query.getPage());
+        return R.ok().put("page", pageUtil);
+    }
+
+    /**
+     * 信息
+     */
+    @RequestMapping(value="/info/{${pk.attrname}}",method = RequestMethod.GET)
+    @RequiresPermissions("${pathName}:info")
+    @ApiOperation(value = "获取${comments}",response =R.class)
+    @ApiImplicitParams({
+         @ApiImplicitParam(paramType = "query", dataType="${pk.attrType}", name = "${pk.attrname}", value = "${comments} id" ),
+    })
+    @ApiResponses({ @ApiResponse(code = 500,message = "服务器异常",response= R.class)})
+    public R info(@PathVariable("${pk.attrname}") ${pk.attrType} ${pk.attrname}){
+        ${className} po = ${classname}Service.selectByPrimaryKey(${pk.attrname});
+        return R.ok().put("${classname}", po);
+    }
+
+    /**
+     * 保存
+     */
+    @SysLog("保存${comments}")
+    @RequestMapping(value="/save",method = RequestMethod.POST)
+    @RequiresPermissions("${pathName}:save")
+    @ApiOperation(value = "保存${comments}",response = R.class)
+    @ApiResponses({ @ApiResponse(code = 500,message = "服务器异常",response= R.class)})
+    public R save(@RequestBody ${className} po){
+        ${classname}Service.insertSelective(po);
+        return R.ok();
+    }
+
+
+    /**
+     * 修改
+     */
+    @SysLog("更新${comments}")
+    @RequestMapping(value="/update",method = RequestMethod.POST)
+    @RequiresPermissions("${pathName}:update")
+    @ApiOperation(value = "更新${comments}",response = R.class)
+    @ApiResponses({ @ApiResponse(code = 500,message = "服务器异常",response= R.class)})
+    public R update(@RequestBody ${className} po){
+        ${classname}Service.updateByPrimaryKeySelective(po);
+        return R.ok();
+    }
+
+    /**
+    * 删除
+    */
+    @SysLog("批量删除${comments}")
+    @RequestMapping(value="/delete",method = RequestMethod.POST)
+    @RequiresPermissions("${pathName}:delete")
+    @ApiOperation(value = "批量删除${comments}",response = R.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "query", dataType="array", name = "${pk.attrname}s", value = "${comments}id数组" ),
+    })
+    @ApiResponses({ @ApiResponse(code = 500,message = "服务器异常",response= R.class)})
+    public R delete(@RequestBody ${pk.attrType} [] ${pk.attrname}s){
+        ${classname}Service.deleteBatch(${pk.attrname}s);
+        return R.ok();
+    }
+
+
+}

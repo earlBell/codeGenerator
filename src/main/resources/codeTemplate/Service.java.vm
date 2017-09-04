@@ -1,0 +1,22 @@
+package ${package}.service;
+
+import ${package}.entity.${className};
+import ${package}.base.IBaseService;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * ${comments}
+ * 
+ * @author ${author}
+ * @date ${datetime}
+ */
+public interface ${className}Service extends  IBaseService <${className},${pk.attrType}> {
+	
+
+	List<${className}> queryList(Map<String, Object> map);
+	
+	int queryTotal(Map<String, Object> map);
+	
+	void deleteBatch(${pk.attrType}[] ${pk.attrname}s);
+}
