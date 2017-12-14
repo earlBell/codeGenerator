@@ -2,8 +2,6 @@ package ${package}.entity;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 
 #if($pk)
 import javax.persistence.GeneratedValue;
@@ -22,7 +20,6 @@ import java.math.BigDecimal;
  * @author ${author}
  * @date ${datetime}
  */
-@ApiModel(value = "${className}",description = "${comments}" )
 @Table(name="${tableName}")
 public class ${className} implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -32,6 +29,7 @@ public class ${className} implements Serializable {
 	#if($pk && $pk.attrname == $column.attrname)
 		@Id
 	    @GeneratedValue(generator = "JDBC")
+		//${column.comments}
 	#end
 	private $column.attrType $column.attrname;
 #end
