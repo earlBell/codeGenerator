@@ -1,6 +1,6 @@
-package com.zhxy.code.utils;
+package com.breakearl.code.utils;
 
-import com.zhxy.code.config.PathYml;
+import com.breakearl.code.config.PathYml;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;

@@ -1,6 +1,6 @@
-package com.zhxy.code.interceptor;
+package com.breakearl.code.interceptor;
 
-import com.zhxy.code.config.PathYml;
+import com.breakearl.code.config.PathYml;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;

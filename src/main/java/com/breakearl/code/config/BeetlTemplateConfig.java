@@ -1,4 +1,4 @@
-package com.zhxy.code.config;
+package com.breakearl.code.config;
 
 import org.beetl.core.resource.ClasspathResourceLoader;
 import org.beetl.ext.spring.BeetlGroupUtilConfiguration;

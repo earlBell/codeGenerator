@@ -1,4 +1,4 @@
-package com.zhxy.code.utils;
+package com.breakearl.code.utils;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.core.env.Environment;

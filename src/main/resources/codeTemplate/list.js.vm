@@ -80,7 +80,7 @@ var vm = new Vue({
 		},
 		saveOrUpdate: function (event) {
 			var url = vm.${classname}.${pk.attrname} == null ? "../${pathName}/save" : "../${pathName}/update";
-            App.ajax(url, JSON.stringify(vm.${pathName}), "POST", function(){
+            App.ajax(url, JSON.stringify(vm.${classname}), "POST", function(){
                 App.notify("操作成功",{"type":"Success"});
                 vm.reload();
             });

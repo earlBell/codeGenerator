@@ -1,7 +1,7 @@
-package com.zhxy.code.config;
+package com.breakearl.code.config;
 
-import com.zhxy.code.interceptor.FrameworkFilter;
-import com.zhxy.code.interceptor.RequestInterceptor;
+import com.breakearl.code.interceptor.FrameworkFilter;
+import com.breakearl.code.interceptor.RequestInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

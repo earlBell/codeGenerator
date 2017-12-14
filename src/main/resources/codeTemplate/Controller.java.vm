@@ -23,7 +23,6 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("${pathName}")
-@Api( description="${comments}接口")
 public class ${className}Controller {
 	@Autowired
 	private ${className}Service ${classname}Service;
@@ -36,8 +35,6 @@ public class ${className}Controller {
     */
     @RequestMapping(value="/list",method = RequestMethod.GET)
     @RequiresPermissions("${pathName}:list")
-    @ApiOperation(value = "获取${comments}分页列表",response =R.class)
-    @ApiResponses({ @ApiResponse(code = 500,message = "服务器异常",response= R.class)})
     public R list(@RequestParam Map<String, Object> params){
         //查询列表数据
         Query query = new Query(params);
@@ -52,11 +49,6 @@ public class ${className}Controller {
      */
     @RequestMapping(value="/info/{${pk.attrname}}",method = RequestMethod.GET)
     @RequiresPermissions("${pathName}:info")
-    @ApiOperation(value = "获取${comments}",response =R.class)
-    @ApiImplicitParams({
-         @ApiImplicitParam(paramType = "query", dataType="${pk.attrType}", name = "${pk.attrname}", value = "${comments} id" ),
-    })
-    @ApiResponses({ @ApiResponse(code = 500,message = "服务器异常",response= R.class)})
     public R info(@PathVariable("${pk.attrname}") ${pk.attrType} ${pk.attrname}){
         ${className} po = ${classname}Service.selectByPrimaryKey(${pk.attrname});
         return R.ok().put("${classname}", po);
@@ -68,8 +60,6 @@ public class ${className}Controller {
     @SysLog("保存${comments}")
     @RequestMapping(value="/save",method = RequestMethod.POST)
     @RequiresPermissions("${pathName}:save")
-    @ApiOperation(value = "保存${comments}",response = R.class)
-    @ApiResponses({ @ApiResponse(code = 500,message = "服务器异常",response= R.class)})
     public R save(@RequestBody ${className} po){
         ${classname}Service.insertSelective(po);
         return R.ok();
@@ -82,8 +72,6 @@ public class ${className}Controller {
     @SysLog("更新${comments}")
     @RequestMapping(value="/update",method = RequestMethod.POST)
     @RequiresPermissions("${pathName}:update")
-    @ApiOperation(value = "更新${comments}",response = R.class)
-    @ApiResponses({ @ApiResponse(code = 500,message = "服务器异常",response= R.class)})
     public R update(@RequestBody ${className} po){
         ${classname}Service.updateByPrimaryKeySelective(po);
         return R.ok();
@@ -95,11 +83,6 @@ public class ${className}Controller {
     @SysLog("批量删除${comments}")
     @RequestMapping(value="/delete",method = RequestMethod.POST)
     @RequiresPermissions("${pathName}:delete")
-    @ApiOperation(value = "批量删除${comments}",response = R.class)
-    @ApiImplicitParams({
-            @ApiImplicitParam(paramType = "query", dataType="array", name = "${pk.attrname}s", value = "${comments}id数组" ),
-    })
-    @ApiResponses({ @ApiResponse(code = 500,message = "服务器异常",response= R.class)})
     public R delete(@RequestBody ${pk.attrType} [] ${pk.attrname}s){
         ${classname}Service.deleteBatch(${pk.attrname}s);
         return R.ok();

@@ -1,6 +1,6 @@
-package com.zhxy.code.config;
+package com.breakearl.code.config;
 
-import com.zhxy.code.utils.PathUtil;
+import com.breakearl.code.utils.PathUtil;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 

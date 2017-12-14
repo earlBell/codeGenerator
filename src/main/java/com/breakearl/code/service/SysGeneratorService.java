@@ -1,9 +1,9 @@
-package com.zhxy.code.service;
+package com.breakearl.code.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.zhxy.code.dao.SysGeneratorMapper;
-import com.zhxy.code.utils.GenUtils;
+import com.breakearl.code.dao.SysGeneratorMapper;
+import com.breakearl.code.utils.GenUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

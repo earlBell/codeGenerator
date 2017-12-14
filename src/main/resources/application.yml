@@ -17,9 +17,9 @@ spring:
     jackson:
         date-format: yyyy-MM-dd HH:mm:ss
 mybatis:
-    typeAliasesPackage: com.zhxy.code.entity
+    typeAliasesPackage: com.breakearl.code.entity
     mapper-locations: classpath:mapper/*.xml
-    mappers:  com.zhxy.code.base.IBaseMapper
+    mappers:  IBaseMapper
     not-empty: false
     identity: MYSQL
 pagehelper:

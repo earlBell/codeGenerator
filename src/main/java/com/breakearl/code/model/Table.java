@@ -1,4 +1,4 @@
-package com.zhxy.code.model;
+package com.breakearl.code.model;
 
 import java.util.List;
 

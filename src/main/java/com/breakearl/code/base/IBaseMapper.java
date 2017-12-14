@@ -1,4 +1,4 @@
-package com.zhxy.code.base;
+package com.breakearl.code.base;
 
 import tk.mybatis.mapper.common.Mapper;
 import tk.mybatis.mapper.common.MySqlMapper;

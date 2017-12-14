@@ -1,7 +1,7 @@
-package com.zhxy.code.controller;
+package com.breakearl.code.controller;
 
+import com.breakearl.code.service.SysGeneratorService;
 import com.github.pagehelper.PageInfo;
-import com.zhxy.code.service.SysGeneratorService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;

@@ -1,7 +1,7 @@
-package com.zhxy.code.interceptor;
+package com.breakearl.code.interceptor;
 
 
-import com.zhxy.code.config.PathYml;
+import com.breakearl.code.config.PathYml;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;

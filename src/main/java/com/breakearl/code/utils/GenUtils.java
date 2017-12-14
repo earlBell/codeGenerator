@@ -1,7 +1,7 @@
-package com.zhxy.code.utils;
+package com.breakearl.code.utils;
 
-import com.zhxy.code.model.Column;
-import com.zhxy.code.model.Table;
+import com.breakearl.code.model.Column;
+import com.breakearl.code.model.Table;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;

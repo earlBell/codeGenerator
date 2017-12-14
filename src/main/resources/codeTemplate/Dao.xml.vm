@@ -11,20 +11,27 @@
     </resultMap>
 
 
+    <sql id="whereField">
+        <if test="key != null and key.trim() != ''">
+        </if>
+    </sql>
+
+    <sql id="idFor">
+        <foreach item="${pk.attrname}" collection="${pk.attrname}s" open="(" separator="," close=")">
+            #{${pk.attrname}}
+        </foreach>
+    </sql>
+
+
+
     <select id="queryTotal" resultType="int">
         select count(*) from ${tableName}
-        <where>
-            <if test="key != null and key.trim() != ''">
-            </if>
-        </where>
+        <include refid="whereField"/>
     </select>
 
     <select id="queryList" resultMap="${classname}Map">
         SELECT * FROM ${tableName}
-        <where>
-            <if test="key != null and key.trim() != ''">
-            </if>
-        </where>
+        <include refid="whereField"/>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
@@ -40,10 +47,8 @@
 
 
 	<delete id="deleteBatch">
-		delete from ${tableName} where ${pk.columnName} in 
-		<foreach item="${pk.attrname}" collection="${pk.attrname}s" open="(" separator="," close=")">
-			#{${pk.attrname}}
-		</foreach>
+		delete from ${tableName} where ${pk.columnName} in
+        <include refid="idFor"/>
 	</delete>
 
 </mapper>
