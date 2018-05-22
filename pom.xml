@@ -185,6 +185,11 @@
 					<imageName>${docker.image.prefix}/${project.artifactId}</imageName>
 					<!-- 构建的Dockerfile文件位置 -->
 					<dockerDirectory>src/main/docker</dockerDirectory>
+					<!--构建镜像的多个版本名称-->
+					<imageTags>
+						<imageTag>${project.version}</imageTag>
+						<imageTag>latest</imageTag>
+					</imageTags>
 					<!--  Docker主机的ip地址，需要配置可远程访问 -->
 					<dockerHost>http://192.168.52.134:2375</dockerHost>
 					<resources>
