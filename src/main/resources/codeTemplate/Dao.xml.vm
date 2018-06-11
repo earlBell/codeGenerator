@@ -12,8 +12,10 @@
 
 
     <sql id="whereField">
-        <if test="key != null and key.trim() != ''">
-        </if>
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="key != null and key.trim() != ''">
+            </if>
+        </trim>
     </sql>
 
     <sql id="idFor">

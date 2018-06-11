@@ -25,26 +25,31 @@ public class ${className} implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 #foreach ($column in $columns)
-		//$column.comments
+	#if($column.comments.length() > 0 )
+//$column.comments
+	#end
 	#if($pk && $pk.attrname == $column.attrname)
-		@Id
-	    @GeneratedValue(generator = "JDBC")
-		//${column.comments}
+	@Id
+	@GeneratedValue(generator = "JDBC")
 	#end
 	private $column.attrType $column.attrname;
 #end
 
 #foreach ($column in $columns)
-	/**
+	#if($column.comments.length() > 0 )
+/**
 	 * 设置：${column.comments}
 	 */
-	public void set${column.attrName}($column.attrType $column.attrname) {
+	#end
+public void set${column.attrName}($column.attrType $column.attrname) {
 		this.$column.attrname = $column.attrname;
 	}
-	/**
+	#if( $column.comments.length() > 0 )
+/**
 	 * 获取：${column.comments}
 	 */
-	public $column.attrType get${column.attrName}() {
+	#end
+public $column.attrType get${column.attrName}() {
 		return $column.attrname;
 	}
 #end
