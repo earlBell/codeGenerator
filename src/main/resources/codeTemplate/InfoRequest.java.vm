@@ -1,0 +1,35 @@
+package ${package}.dto.${module};
+
+
+import ${package}.dto.BaseRequest;
+
+import java.io.Serializable;
+
+/**
+ * ${comments}详情请求参数
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+public class ${className}InfoRequest extends BaseRequest implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+#foreach ($column in $columns)
+    #if($pk && $pk.attrname == $column.attrname)
+        private $column.attrType $column.attrname;
+    #end
+#end
+
+#foreach ($column in $columns)
+    #if($pk && $pk.attrname == $column.attrname)
+        public void set${column.attrName}($column.attrType $column.attrname) {
+            this.$column.attrname = $column.attrname;
+        }
+        public $column.attrType get${column.attrName}() {
+            return $column.attrname;
+        }
+    #end
+#end
+
+}

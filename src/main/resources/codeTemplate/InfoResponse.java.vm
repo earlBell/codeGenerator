@@ -1,0 +1,19 @@
+package ${package}.dto.${module};
+
+
+import ${package}.dto.BaseResponse;
+
+import java.io.Serializable;
+
+/**
+ * ${comments}详情响应参数
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+public class ${className}InfoResponse extends BaseResponse implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+
+}

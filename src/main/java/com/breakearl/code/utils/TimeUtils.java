@@ -1,5 +1,6 @@
 package com.breakearl.code.utils;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -13,6 +14,8 @@ public final class TimeUtils {
      * 获取默认时间格式: yyyy-MM-dd HH:mm:ss
      */
     private static final DateTimeFormatter DEFAULT_DATETIME_FORMATTER = TimeFormat.LONG_DATE_PATTERN_LINE.formatter;
+
+    private static final DateTimeFormatter YMD = TimeFormat.SHORT_DATE_PATTERN_LINE.formatter;
 
     //防止实例化
     private TimeUtils() {  }
@@ -65,7 +68,7 @@ public final class TimeUtils {
      * @return
      */
     public static String getCurrentDatetime() {
-        return DEFAULT_DATETIME_FORMATTER.format(LocalDateTime.now());
+        return YMD.format(LocalDate.now());
     }
 
     /**

@@ -1,0 +1,26 @@
+package ${package}.dao.${module};
+
+import java.util.List;
+import ${package}.BaseDAO;
+import ${package}.entity.${module}.${className};
+import ${package}.qo.${module}.${className}PageQPO;
+
+
+/**
+ * ${comments}
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+public interface ${className}DAO extends BaseDAO<${className}> {
+
+
+
+    /**
+     * 分页查询
+     * @param pageRequest   查询参数
+     * @return List  分页数据
+     */
+    List<${className}> queryList(${className}PageQPO pageRequest);
+
+}

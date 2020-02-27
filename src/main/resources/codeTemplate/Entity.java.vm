@@ -1,4 +1,4 @@
-package ${package}.entity;
+package ${package}.entity.${module};
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -25,31 +25,23 @@ public class ${className} implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 #foreach ($column in $columns)
-	#if($column.comments.length() > 0 )
-//$column.comments
-	#end
-	#if($pk && $pk.attrname == $column.attrname)
-	@Id
-	@GeneratedValue(generator = "JDBC")
-	#end
-	private $column.attrType $column.attrname;
+#if($column.comments.length() > 0 )
+/**
+ *	$column.comments
+ */
+#end
+#if($pk && $pk.attrname == $column.attrname)
+@Id
+@GeneratedValue(generator = "JDBC")
+#end
+private $column.attrType $column.attrname;
 #end
 
 #foreach ($column in $columns)
-	#if($column.comments.length() > 0 )
-/**
-	 * 设置：${column.comments}
-	 */
-	#end
-public void set${column.attrName}($column.attrType $column.attrname) {
+	public void set${column.attrName}($column.attrType $column.attrname) {
 		this.$column.attrname = $column.attrname;
 	}
-	#if( $column.comments.length() > 0 )
-/**
-	 * 获取：${column.comments}
-	 */
-	#end
-public $column.attrType get${column.attrName}() {
+	public $column.attrType get${column.attrName}() {
 		return $column.attrname;
 	}
 #end

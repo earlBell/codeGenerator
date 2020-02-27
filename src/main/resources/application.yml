@@ -1,19 +1,19 @@
 server:
-    port: 8886
+    port: 8888
 spring:
     datasource:
-        url: jdbc:mysql://xxxxxxxx:3306/xxxxx?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+        url: jdbc:mysql://localhost:3306/mydb?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
         username: root
-        password: xxxxxxx
+        password: 123456
         driver-class-name: com.mysql.jdbc.Driver
         type: com.alibaba.druid.pool.DruidDataSource
         initialSize: 5
         minIdle: 5
     redis:
-        database: 0
-        host: xxxxxxxx
+        database: 1
+        host: 192.168.9.138
         port: 6379
-        password: xxxxxx
+        password: Yard8yas7ik2su7Ac9iv1volT2oiRt0Oc1aips1oM4Aj5hOw3y
     jackson:
         date-format: yyyy-MM-dd HH:mm:ss
 mybatis:

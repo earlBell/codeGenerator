@@ -1,91 +1,99 @@
-package ${package}.controller;
+package ${package}.web.controller.${module};
 
-import ${package}.entity.${className};
-import ${package}.service.${className}Service;
-import ${package}.utils.PageUtils;
-import ${package}.utils.Query;
-import ${package}.utils.R;
-import ${package}.utils.annotation.SysLog;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
+import ${package}.entity.${module}.${className};
+import ${package}.service.${module}.${className}Service;
+import ${package}.common.annotation.SysLog;
+import ${package}.common.constants.ResultCode;
+import ${package}.common.utils.CglibBeanCopierUtils;
+import ${package}.common.annotation.SysLog;
+import ${package}.common.annotation.validator.AddGroup;
+import ${package}.common.annotation.validator.InputGroup;
+import ${package}.common.annotation.validator.UpdateGroup;
+import ${package}.common.utils.validator.ValidatorUtils;
+import ${package}.dto.BasePageResponse;
+import ${package}.dto.BaseResponse;
+import ${package}.dto.PageInfoResponse;
+import ${package}.dto.${module}.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import io.swagger.annotations.*;
 
 import java.util.List;
-import java.util.Map;
 
 
 /**
  * ${comments}
  * 
- * @author ${author}
- * @date ${datetime}
+ * @author  ${author}
+ * @date  ${datetime}
+ * @tag ${comments}模块
+ * @alias ${comments}功能
  */
 @RestController
-@RequestMapping("${pathName}")
+@RequestMapping("/${pathName}")
 public class ${className}Controller {
+
+
 	@Autowired
 	private ${className}Service ${classname}Service;
 
 
     /**
-    * 列表
-    * @param params
-    * @return
-    */
-    @RequestMapping(value="/list",method = RequestMethod.GET)
-    @RequiresPermissions("${pathName}:list")
-    public R list(@RequestParam Map<String, Object> params){
-        //查询列表数据
-        Query query = new Query(params);
-        List<${className}> list = ${classname}Service.queryList(query);
-        int total = ${classname}Service.queryTotal(query);
-        PageUtils pageUtil = new PageUtils(list, total, query.getLimit(), query.getPage());
-        return R.ok().put("page", pageUtil);
-    }
-
-    /**
-     * 信息
+     * ${comments}分页列表
      */
-    @RequestMapping(value="/info/{${pk.attrname}}",method = RequestMethod.GET)
-    @RequiresPermissions("${pathName}:info")
-    public R info(@PathVariable("${pk.attrname}") ${pk.attrType} ${pk.attrname}){
-        ${className} po = ${classname}Service.selectByPrimaryKey(${pk.attrname});
-        return R.ok().put("${classname}", po);
+    @GetMapping(value="/page" )
+    public BasePageResponse list( ${className}PageRequest pageRequest){
+        ValidatorUtils.validateEntity(pageRequest, InputGroup.class);
+        PageInfoResponse pageResponse= ${classname}Service.queryList(pageRequest);
+        BasePageResponse basePageResponse = new BasePageResponse();
+        basePageResponse.setPage(pageResponse);
+        basePageResponse.setResultCode(ResultCode.SUCCESS);
+        return basePageResponse;
     }
 
+
     /**
-     * 保存
+     * 查看${comments}详情
+     */
+    @GetMapping(value="/info" )
+    public ${className}InfoResponse info( ${className}InfoRequest infoRequest){
+        ValidatorUtils.validateEntity(infoRequest, InputGroup.class);
+        ${className}  ${classname} = ${classname}Service.selectById(infoRequest.get${pk.attrName}());
+        ${className}InfoResponse info = new ${className}InfoResponse();
+        CglibBeanCopierUtils.copyProperties( ${classname},info);
+        info.setResultCode(ResultCode.SUCCESS);
+        return info;
+    }
+
+
+    /**
+     * 保存${comments}
      */
     @SysLog("保存${comments}")
-    @RequestMapping(value="/save",method = RequestMethod.POST)
-    @RequiresPermissions("${pathName}:save")
-    public R save(@RequestBody ${className} po){
-        ${classname}Service.insertSelective(po);
-        return R.ok();
+    @PostMapping
+    public BaseResponse save(@RequestBody ${className}SaveRequest saveRequest){
+        ValidatorUtils.validateEntity(saveRequest, AddGroup.class);
+        ${className} ${classname} = new ${className}();
+        CglibBeanCopierUtils.copyProperties(saveRequest,${classname});
+        ${classname}Service.insertSelective(${classname});
+        BaseResponse response = new BaseResponse();
+        response.setResultCode(ResultCode.SUCCESS);
+        return response;
     }
 
 
     /**
-     * 修改
+     * 更新${comments}
      */
     @SysLog("更新${comments}")
-    @RequestMapping(value="/update",method = RequestMethod.POST)
-    @RequiresPermissions("${pathName}:update")
-    public R update(@RequestBody ${className} po){
-        ${classname}Service.updateByPrimaryKeySelective(po);
-        return R.ok();
-    }
-
-    /**
-    * 删除
-    */
-    @SysLog("批量删除${comments}")
-    @RequestMapping(value="/delete",method = RequestMethod.POST)
-    @RequiresPermissions("${pathName}:delete")
-    public R delete(@RequestBody ${pk.attrType} [] ${pk.attrname}s){
-        ${classname}Service.deleteBatch(${pk.attrname}s);
-        return R.ok();
+    @PatchMapping
+    public BaseResponse update(@RequestBody ${className}UpdateRequest updateRequest){
+        ValidatorUtils.validateEntity(updateRequest, UpdateGroup.class);
+        ${className} ${classname} = new ${className}();
+        CglibBeanCopierUtils.copyProperties(updateRequest,${classname});
+        ${classname}Service.updateByIdSelective(${classname});
+        BaseResponse response = new BaseResponse();
+        response.setResultCode(ResultCode.SUCCESS);
+        return response;
     }
 
 

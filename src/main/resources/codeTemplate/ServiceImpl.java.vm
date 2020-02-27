@@ -1,16 +1,20 @@
-package ${package}.impl;
+package ${package}.service.impl.${module};
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ${package}.dao.${module}.${className}DAO;
+import ${package}.service.impl.BaseServiceImpl;
+import ${package}.service.${module}.${className}Service;
+import ${package}.entity.${module}.${className};
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
-import ${package}.base.BaseService;
-import ${package}.base.IBaseMapper;
-import ${package}.service.${className}Service;
-import ${package}.dao.${className}Dao;
-import ${package}.entity.${className};
+import ${package}.common.utils.CglibBeanCopierUtils;
+import ${package}.dto.PageInfoResponse;
+import ${package}.dto.${module}.${className}PageRequest;
+import ${package}.qo.${module}.${className}PageQPO;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import java.util.List;
-import java.util.Map;
 
 
 
@@ -20,34 +24,23 @@ import java.util.Map;
  * @author ${author}
  * @date ${datetime}
  */
-@Service("${classname}Service")
-@Transactional
-public class ${className}ServiceImpl extends BaseService<${className},${pk.attrType}> implements  ${className}Service {
-
-	@Autowired
-	private ${className}Dao ${classname}Dao;
-
+@Service
+public class ${className}ServiceImpl extends BaseServiceImpl<${className}DAO, ${className}> implements ${className}Service    {
 
     @Override
-    protected IBaseMapper <${className}> getBaseDao() {
-        return ${classname}Dao;
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<${className}> queryList(Map<String, Object> map){
-        return ${classname}Dao.queryList(map);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public int queryTotal(Map<String, Object> map){
-        return ${classname}Dao.queryTotal(map);
+    @Transactional(readOnly = true, isolation = Isolation.REPEATABLE_READ, rollbackFor = Throwable.class)
+    public PageInfoResponse queryList(${className}PageRequest pageRequest){
+        ${className}PageQPO pageQPO = new ${className}PageQPO();
+        CglibBeanCopierUtils.copyProperties(pageRequest,pageQPO);
+        PageHelper.startPage(pageRequest.getPageNum(), pageRequest.getPageSize());
+        List<${className}> queryList =  mapper.queryList(pageQPO);
+        PageInfo<${className}> pageInfo = new PageInfo< >(queryList);
+        PageInfoResponse pageResponse = new PageInfoResponse();
+        CglibBeanCopierUtils.copyProperties(pageInfo,pageResponse);
+        return pageResponse;
     }
 
 
-    @Override
-    public void deleteBatch(${pk.attrType} [] ${pk.attrname}s){
-        ${classname}Dao.deleteBatch(${pk.attrname}s);
-    }
+
+
 }

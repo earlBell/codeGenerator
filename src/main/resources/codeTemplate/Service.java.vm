@@ -1,9 +1,9 @@
-package ${package}.service;
+package ${package}.service.${module};
 
-import ${package}.entity.${className};
-import ${package}.base.IBaseService;
-import java.util.List;
-import java.util.Map;
+import ${package}.dto.PageInfoResponse;
+import ${package}.dto.${module}.${className}PageRequest;
+import ${package}.entity.${module}.${className};
+import ${package}.service.BaseService;
 
 /**
  * ${comments}
@@ -11,12 +11,15 @@ import java.util.Map;
  * @author ${author}
  * @date ${datetime}
  */
-public interface ${className}Service extends  IBaseService <${className},${pk.attrType}> {
-	
+public interface ${className}Service extends BaseService <${className}> {
 
-	List<${className}> queryList(Map<String, Object> map);
-	
-	int queryTotal(Map<String, Object> map);
-	
-	void deleteBatch(${pk.attrType}[] ${pk.attrname}s);
+
+	/**
+	 * 分页查询
+	 * @param pageRequest  分页查询参数
+	 * @return PageInfoResponse  分页响应数据
+	 */
+	PageInfoResponse queryList(${className}PageRequest pageRequest);
+
+
 }

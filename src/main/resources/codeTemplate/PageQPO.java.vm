@@ -1,0 +1,18 @@
+package ${package}.qo.${module};
+
+
+import java.io.Serializable;
+
+/**
+ * ${comments}分页查询参数
+ *
+ * @author  ${author}
+ * @date  ${datetime}
+ **/
+public class ${className}PageQPO  implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+
+
+}

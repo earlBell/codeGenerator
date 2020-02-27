@@ -1,0 +1,36 @@
+package ${package}.dto.${module};
+
+import ${package}.dto.BaseRequest;
+import java.time.LocalDateTime;
+
+import java.io.Serializable;
+
+/**
+ * ${comments}保存请求参数
+ *
+ * @author  ${author}
+ * @date  ${datetime}
+ **/
+public class ${className}SaveRequest extends BaseRequest implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+#foreach ($column in $columns)
+#if($column.comments.length() > 0 )
+/**
+ *	$column.comments
+ */
+#end
+private $column.attrType $column.attrname;
+#end
+
+#foreach ($column in $columns)
+	public void set${column.attrName}($column.attrType $column.attrname) {
+		this.$column.attrname = $column.attrname;
+	}
+	public $column.attrType get${column.attrName}() {
+		return $column.attrname;
+	}
+#end
+
+}
