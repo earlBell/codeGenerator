@@ -1,22 +1,26 @@
-package ${package}.service;
+package ${package}.service.${modulename};
 
-import ${package}.entity.${className};
-import ${package}.base.IBaseService;
 import java.util.List;
-import java.util.Map;
+import ${package}.service.BaseService;
+import ${package}.model.${modulename}.${className};
+import ${package}.vo.req.${modulename}.*;
+import ${package}.vo.resp.${modulename}.*;
+import com.github.pagehelper.PageInfo;
 
 /**
- * ${comments}
+ * ${comments}服务
  * 
  * @author ${author}
  * @date ${datetime}
  */
-public interface ${className}Service extends  IBaseService <${className},${pk.attrType}> {
-	
+public interface ${className}Service extends BaseService <${className}> {
 
-	List<${className}> queryList(Map<String, Object> map);
-	
-	int queryTotal(Map<String, Object> map);
-	
-	void deleteBatch(${pk.attrType}[] ${pk.attrname}s);
+
+    /**
+     * ${comments}分页列表
+     * @param pageReq 请求参数
+     * @return
+     */
+    PageInfo<${className}PageResp> pageList(${className}PageReq pageReq);
+
 }

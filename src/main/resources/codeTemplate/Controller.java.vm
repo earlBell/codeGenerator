@@ -1,18 +1,22 @@
 package ${package}.controller;
 
-import ${package}.entity.${className};
-import ${package}.service.${className}Service;
-import ${package}.utils.PageUtils;
-import ${package}.utils.Query;
-import ${package}.utils.R;
-import ${package}.utils.annotation.SysLog;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
+import ${package}.model.${modulename}.${className};
+import ${package}.service.${modulename}.${className}Service;
+import ${package}.utils.CglibBeanCopierUtils;
+import ${package}.vo.req.${modulename}.${className}PageReq;
+import ${package}.vo.req.${modulename}.${className}SaveReq;
+import ${package}.vo.req.${modulename}.${className}UpdateReq;
+import ${package}.vo.resp.${modulename}.${className}PageResp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import io.swagger.annotations.*;
-
-import java.util.List;
-import java.util.Map;
+import ${package}.vo.AjaxResult;
+import ${package}.utils.Constants;
+import ${package}.utils.IdWorker;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
+import com.github.pagehelper.PageInfo;
 
 
 /**
@@ -22,71 +26,57 @@ import java.util.Map;
  * @date ${datetime}
  */
 @RestController
-@RequestMapping("${pathName}")
+@RequestMapping("/${modulename}/${classname}")
+@Slf4j
+@Api(value = "${classname}", tags = "", description = "${comments}")
 public class ${className}Controller {
+
 	@Autowired
 	private ${className}Service ${classname}Service;
 
-
-    /**
-    * 列表
-    * @param params
-    * @return
-    */
-    @RequestMapping(value="/list",method = RequestMethod.GET)
-    @RequiresPermissions("${pathName}:list")
-    public R list(@RequestParam Map<String, Object> params){
-        //查询列表数据
-        Query query = new Query(params);
-        List<${className}> list = ${classname}Service.queryList(query);
-        int total = ${classname}Service.queryTotal(query);
-        PageUtils pageUtil = new PageUtils(list, total, query.getLimit(), query.getPage());
-        return R.ok().put("page", pageUtil);
-    }
-
-    /**
-     * 信息
-     */
-    @RequestMapping(value="/info/{${pk.attrname}}",method = RequestMethod.GET)
-    @RequiresPermissions("${pathName}:info")
-    public R info(@PathVariable("${pk.attrname}") ${pk.attrType} ${pk.attrname}){
-        ${className} po = ${classname}Service.selectByPrimaryKey(${pk.attrname});
-        return R.ok().put("${classname}", po);
-    }
-
-    /**
-     * 保存
-     */
-    @SysLog("保存${comments}")
-    @RequestMapping(value="/save",method = RequestMethod.POST)
-    @RequiresPermissions("${pathName}:save")
-    public R save(@RequestBody ${className} po){
-        ${classname}Service.insertSelective(po);
-        return R.ok();
+    @ApiOperation(value = "${comments}分页列表", notes = "${comments}分页列表")
+    @GetMapping(value="/page" )
+    public AjaxResult list(${className}PageReq pageReq ){
+        AjaxResult result = new AjaxResult();
+        PageInfo<${className}PageResp> list = ${classname}Service.pageList(pageReq);
+        result.successResult("success",list);
+        return  result;
     }
 
 
-    /**
-     * 修改
-     */
-    @SysLog("更新${comments}")
-    @RequestMapping(value="/update",method = RequestMethod.POST)
-    @RequiresPermissions("${pathName}:update")
-    public R update(@RequestBody ${className} po){
-        ${classname}Service.updateByPrimaryKeySelective(po);
-        return R.ok();
+    @ApiOperation(value = "查看${comments}",notes = "根据${comments}Id查看详情",response = ${className}.class)
+    @GetMapping("/{${pk.attrname}}")
+    public AjaxResult info(@PathVariable("${pk.attrname}") ${pk.attrType} ${pk.attrname}) {
+        AjaxResult result = new AjaxResult();
+        result.successResult(Constants.SYS_SUCCESS, ${classname}Service.selectById(${pk.attrname}));
+        return result;
     }
 
-    /**
-    * 删除
-    */
-    @SysLog("批量删除${comments}")
-    @RequestMapping(value="/delete",method = RequestMethod.POST)
-    @RequiresPermissions("${pathName}:delete")
-    public R delete(@RequestBody ${pk.attrType} [] ${pk.attrname}s){
-        ${classname}Service.deleteBatch(${pk.attrname}s);
-        return R.ok();
+    @ApiOperation(value = "保存${comments}", notes = "保存${comments}" )
+    @ApiImplicitParam(value = "保存${comments}",paramType = "body",dataType = "${className}SaveReq")
+    @PostMapping
+    public AjaxResult save(@RequestBody ${className}SaveReq saveReq) {
+        AjaxResult result = new AjaxResult();
+        ${className} insertData = new ${className} ();
+        CglibBeanCopierUtils.copyProperties(saveReq,insertData);
+        insertData.set${pk.attrName}(IdWorker.getId());
+        ${classname}Service.insertSelective(insertData);
+        result.successResult(Constants.SYS_SUCCESS,null);
+        return result;
     }
+
+    @ApiOperation(value = "更新${comments}", notes = "更新${comments}" )
+    @ApiImplicitParam(value = "更新${comments}",paramType = "body",dataType = "${className}UpdateReq")
+    @PatchMapping
+    public AjaxResult update(@RequestBody ${className}UpdateReq updateReq) {
+        AjaxResult result = new AjaxResult();
+        ${className} updateData =${classname}Service.selectById(updateReq.get${pk.attrName}() );
+        CglibBeanCopierUtils.copyProperties(updateReq,updateData);
+        ${classname}Service.updateByIdSelective(updateData);
+        result.successResult(Constants.SYS_SUCCESS,null);
+        return result;
+    }
+
 
 
 }

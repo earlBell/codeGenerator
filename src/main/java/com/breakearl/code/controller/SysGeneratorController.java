@@ -55,9 +55,9 @@ public class SysGeneratorController {
 	 */
 	@RequestMapping(value = "/code",method = {RequestMethod.GET,RequestMethod.POST})
 	@ApiOperation(value = "代码生成接口" )
-	public void code(String tables,HttpServletRequest request, HttpServletResponse response) throws IOException{
+	public void code(String tables,String templateName,  HttpServletResponse response) throws IOException{
 		String[] tableNames = StringUtils.split(tables,",");
-		byte[] data = sysGeneratorService.generatorCode(tableNames);
+		byte[] data = sysGeneratorService.generatorCode(tableNames,templateName);
 		response.reset();
         response.setHeader("Content-Disposition", "attachment; filename=\"code.zip\"");
         response.addHeader("Content-Length", "" + data.length);

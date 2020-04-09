@@ -1,4 +1,4 @@
-package ${package}.model.${modulename};
+package ${package}.vo.req.${modulename};
 
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
@@ -7,8 +7,6 @@ import lombok.Data;
 
 import java.util.Date;
 
-import javax.persistence.Table;
-import javax.persistence.Id;
 
 #if(${hasBigDecimal})
 import java.math.BigDecimal;
@@ -16,23 +14,19 @@ import java.math.BigDecimal;
 
 
 /**
- * ${comments}
+ * ${comments}分页响应
  * 
  * @author ${author}
  * @date ${datetime}
  */
-@ApiModel(value="${package}.model.${modulename}.${className}")
+@ApiModel(value="${package}.vo.resp.${modulename}.${className}PageResp")
 @Data
-@Table(name="${tableName}")
-public class ${className} implements Serializable {
+public class ${className}PageResp implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 #foreach ($column in $columns)
 	#if($column.comments.length() > 0 )
 	@ApiModelProperty(value="$column.comments")
-	#end
-	#if($pk && $pk.attrname == $column.attrname)
-	@Id
 	#end
 	private $column.attrType $column.attrname;
 #end

@@ -1,0 +1,30 @@
+package ${package}.vo.req.${modulename};
+
+import java.io.Serializable;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import ${package}.query.BaseQueryObject;
+
+import java.util.Date;
+
+
+#if(${hasBigDecimal})
+import java.math.BigDecimal;
+#end
+
+
+/**
+ * ${comments}分页列表请求
+ * 
+ * @author ${author}
+ * @date ${datetime}
+ */
+@ApiModel(value="${package}.vo.req.${modulename}.${className}PageReq")
+@Data
+public class ${className}PageReq extends BaseQueryObject implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
+
+
+}

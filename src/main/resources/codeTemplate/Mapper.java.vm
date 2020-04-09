@@ -1,0 +1,28 @@
+package ${package}.dao;
+
+import java.util.List;
+import java.util.Map;
+import ${package}.base.BaseMapper;
+import ${package}.model.${modulename}.${className};
+import org.apache.ibatis.annotations.Param;
+import ${package}.vo.req.${modulename}.${className}PageReq;
+import ${package}.vo.resp.${modulename}.${className}PageResp;
+
+
+/**
+ * ${comments}
+ * 
+ * @author ${author}
+ * @date ${datetime}
+ */
+public interface ${className}Mapper  extends BaseMapper<${className}> {
+
+
+    /**
+     * ${comments}分页列表
+     * @param pageReq 请求参数
+     * @return
+     */
+    List<${className}PageResp> allList(${className}PageReq pageReq);
+
+}

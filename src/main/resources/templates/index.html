@@ -59,6 +59,8 @@
             buttonsCallBack : function() {
                 var html = '<button class="btn btn-sm btn-primary"  type="button" ' +
                         'onclick="code()"><span class="bold">生成代码</span></button>';
+                html += '<button class="btn btn-sm btn-primary"  type="button" ' +
+                'onclick="codeEntity()"><span class="bold">生成Entity</span></button>';
                 return html;
             }
         }, {
@@ -83,7 +85,7 @@
         });
     }
 
-    function  code() {
+    function  code(templateName) {
         var postData = Utils.getDataTableCheckIds("editable");
         if (Utils.isEmptyObject(postData)){
             return ;
@@ -95,7 +97,14 @@
             }
             tables += postData[i].value+",";
         }
-        window.open("generator/code?tables="+tables);
+        if(templateName == "undefined" || templateName == undefined){
+            templateName = "";
+        }
+        window.open("generator/code?tables="+tables+"&templateName="+templateName);
+    }
+
+    function  codeEntity() {
+        code('Entity.java')
     }
 
 </script>

@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -32,11 +33,13 @@ public class GenUtils {
 		templates.add("codeTemplate/Controller.java.vm");
 		templates.add("codeTemplate/Service.java.vm");
 		templates.add("codeTemplate/ServiceImpl.java.vm");
-		templates.add("codeTemplate/Dao.java.vm");
-		templates.add("codeTemplate/Dao.xml.vm");
-		templates.add("codeTemplate/list.html.vm");
-		templates.add("codeTemplate/list.js.vm");
-		templates.add("codeTemplate/menu.sql.vm");
+		templates.add("codeTemplate/Mapper.java.vm");
+		templates.add("codeTemplate/Mapper.xml.vm");
+
+		templates.add("codeTemplate/PageReq.java.vm");
+		templates.add("codeTemplate/PageResp.java.vm");
+		templates.add("codeTemplate/SaveReq.java.vm");
+		templates.add("codeTemplate/UpdateReq.java.vm");
 		return templates;
 	}
 	
@@ -44,7 +47,7 @@ public class GenUtils {
 	 * 生成代码
 	 */
 	public static void generatorCode(Map<String, String> table,
-			List<Map<String, String>> columns, ZipOutputStream zip){
+			List<Map<String, String>> columns, ZipOutputStream zip,String templateName){
 		//配置信息
 		Configuration config = getConfig();
 		
@@ -106,11 +109,15 @@ public class GenUtils {
 		map.put("package", config.getString("package"));
 		map.put("author", config.getString("author"));
 		map.put("email", config.getString("email"));
+		map.put("modulename", config.getString("modulename"));
 		map.put("datetime",  TimeUtils.getCurrentDatetime());
         VelocityContext context = new VelocityContext(map);
         
         //获取模板列表
 		List<String> templates = getTemplates();
+		if(StringUtils.isNotEmpty(templateName)){
+			templates = templates.stream().filter(template -> StringUtils.contains(template, templateName)).collect(Collectors.toList());
+		}
 		for(String template : templates){
 			//渲染模板
 			StringWriter sw = new StringWriter();
@@ -119,7 +126,7 @@ public class GenUtils {
 			
 			try {
 				//添加到zip
-				zip.putNextEntry(new ZipEntry(getFileName(template, tableEntity.getClassName(), config.getString("package"))));  
+				zip.putNextEntry(new ZipEntry(getFileName(template, tableEntity.getClassName(), config.getString("package"),config.getString("modulename"))));
 				IOUtils.write(sw.toString(), zip, "UTF-8");
 				IOUtils.closeQuietly(sw);
 				zip.closeEntry();
@@ -161,40 +168,41 @@ public class GenUtils {
 	/**
 	 * 获取文件名
 	 */
-	public static String getFileName(String template, String className, String packageName){
-		String packagePath = "main" + File.separator + "java" + File.separator;
+	public static String getFileName(String template, String className, String packageName,String modulename){
+		String packagePath =  "java" + File.separator;
 		if(StringUtils.isNotBlank(packageName)){
 			packagePath += packageName.replace(".", File.separator) + File.separator;
 		}
 		if(template.contains("Entity.java.vm")){
-			return packagePath + "entity" + File.separator + className + ".java";
+			return packagePath + File.separator+"model" +File.separator+ modulename + File.separator + className + ".java";
 		}
 		if(template.contains("Controller.java.vm")){
 			return packagePath + "controller" + File.separator + className + "Controller.java";
 		}
 		if(template.contains("Service.java.vm")){
-			return packagePath + "service" + File.separator + className + "Service.java";
+			return packagePath + "service" +File.separator+ modulename  + File.separator + className + "Service.java";
 		}
 		if(template.contains("ServiceImpl.java.vm")){
-			return packagePath + "service" + File.separator + "impl" + File.separator + className + "ServiceImpl.java";
+			return packagePath + "service" +File.separator+ modulename  + File.separator + className + "ServiceImpl.java";
 		}
-		if(template.contains("Dao.java.vm")){
-			return packagePath + "dao" + File.separator + className + "Dao.java";
+		if(template.contains("Mapper.java.vm")){
+			return packagePath + "dao" + File.separator + className + "Mapper.java";
 		}
-		if(template.contains("Dao.xml.vm")){
-			return "main" + File.separator + "resources" + File.separator + "mapper" + File.separator + className + "Dao.xml";
+		if(template.contains("Mapper.xml.vm")){
+			return packagePath + File.separator + className + "Mapper.xml";
 		}
 
-		if(template.contains("list.html.vm")){
-			return "main" + File.separator + "resources" + File.separator + "static" + File.separator
-					+ "generator" + File.separator + className.toLowerCase() + ".html";
+		if(template.contains("SaveReq.java.vm")){
+			return packagePath + File.separator+"model" +File.separator+ modulename + File.separator + className +  "SaveReq.java";
 		}
-		if(template.contains("list.js.vm")){
-			return "main" + File.separator + "resources" + File.separator + "static" + File.separator + "public" + File.separator
-					+ "js" + File.separator + "generator" + File.separator + className.toLowerCase() + ".js";
+		if(template.contains("UpdateReq.java.vm")){
+			return packagePath + File.separator+"model" +File.separator+ modulename + File.separator + className +  "UpdateReq.java";
 		}
-		if(template.contains("menu.sql.vm")){
-			return className.toLowerCase() + "_menu.sql";
+		if(template.contains("PageReq.java.vm")){
+			return packagePath + File.separator+"model" +File.separator+ modulename + File.separator + className +  "PageReq.java";
+		}
+		if(template.contains("PageResp.java.vm")){
+			return packagePath + File.separator+"model" +File.separator+ modulename + File.separator + className + "PageResp.java";
 		}
 		return null;
 	}

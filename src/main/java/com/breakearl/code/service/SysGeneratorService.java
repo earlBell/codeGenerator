@@ -39,7 +39,22 @@ public class SysGeneratorService {
 		return sysGeneratorMapper.queryColumns(tableName);
 	}
 
-	public byte[] generatorCode(String[] tableNames) {
+	/**
+	 * 生成代码
+	 * @param tableNames  表名
+	 * @return
+	 */
+	public byte[] generatorCode(String[] tableNames ) {
+		return generatorCode(tableNames,null);
+	}
+
+	/**
+	 * 生成代码
+	 * @param tableNames  表名
+	 * @param templateFileName  生成的文件模板，为null表示生成全部模板文件
+	 * @return
+	 */
+	public byte[] generatorCode(String[] tableNames,String templateFileName) {
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		ZipOutputStream zip = new ZipOutputStream(outputStream);
 
@@ -49,7 +64,7 @@ public class SysGeneratorService {
 			//查询列信息
 			List<Map<String, String>> columns = queryColumns(tableName);
 			//生成代码
-			GenUtils.generatorCode(table, columns, zip);
+			GenUtils.generatorCode(table, columns, zip,templateFileName);
 		}
 		IOUtils.closeQuietly(zip);
 		return outputStream.toByteArray();
