@@ -1,22 +1,18 @@
-package ${package}.controller;
+package ${package}.${modulename}.controller;
 
-import ${package}.model.${modulename}.${className};
-import ${package}.service.${modulename}.${className}Service;
-import ${package}.utils.CglibBeanCopierUtils;
-import ${package}.vo.req.${modulename}.${className}PageReq;
-import ${package}.vo.req.${modulename}.${className}SaveReq;
-import ${package}.vo.req.${modulename}.${className}UpdateReq;
-import ${package}.vo.resp.${modulename}.${className}PageResp;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import ${package}.vo.AjaxResult;
-import ${package}.utils.Constants;
-import ${package}.utils.IdWorker;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.miniso.common.web.ResultMsg;
+import ${package}.${modulename}.dto.req.${className}Page;
+import ${package}.${modulename}.dto.resp.${className}PageResp;
+import ${package}.${modulename}.service.${className}Service;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 
 /**
@@ -26,56 +22,20 @@ import com.github.pagehelper.PageInfo;
  * @date ${datetime}
  */
 @RestController
-@RequestMapping("/${modulename}/${classname}")
+@Api(value = "backend${className}", description = "${comments}", tags = {"backend${className}"})
+@RequestMapping(value = "/backend/${classname}", produces = {"application/json"})
 @Slf4j
-@Api(value = "${classname}", tags = "", description = "${comments}")
 public class ${className}Controller {
 
 	@Autowired
 	private ${className}Service ${classname}Service;
 
-    @ApiOperation(value = "${comments}分页列表", notes = "${comments}分页列表")
-    @GetMapping(value="/page" )
-    public AjaxResult list(${className}PageReq pageReq ){
-        AjaxResult result = new AjaxResult();
-        PageInfo<${className}PageResp> list = ${classname}Service.pageList(pageReq);
-        result.successResult("success",list);
-        return  result;
+    @PostMapping("/page")
+    @ApiOperation("获取分页列表")
+    public ResultMsg<IPage<${className}PageResp>> page(@RequestBody ${className}Page page) {
+        return ResultMsg.ok(this.${classname}Service.page(page));
     }
 
-
-    @ApiOperation(value = "查看${comments}",notes = "根据${comments}Id查看详情",response = ${className}.class)
-    @GetMapping("/{${pk.attrname}}")
-    public AjaxResult info(@PathVariable("${pk.attrname}") ${pk.attrType} ${pk.attrname}) {
-        AjaxResult result = new AjaxResult();
-        result.successResult(Constants.SYS_SUCCESS, ${classname}Service.selectById(${pk.attrname}));
-        return result;
-    }
-
-    @ApiOperation(value = "保存${comments}", notes = "保存${comments}" )
-    @ApiImplicitParam(value = "保存${comments}",paramType = "body",dataType = "${className}SaveReq")
-    @PostMapping
-    public AjaxResult save(@RequestBody ${className}SaveReq saveReq) {
-        AjaxResult result = new AjaxResult();
-        ${className} insertData = new ${className} ();
-        CglibBeanCopierUtils.copyProperties(saveReq,insertData);
-        insertData.set${pk.attrName}(IdWorker.getId());
-        ${classname}Service.insertSelective(insertData);
-        result.successResult(Constants.SYS_SUCCESS,null);
-        return result;
-    }
-
-    @ApiOperation(value = "更新${comments}", notes = "更新${comments}" )
-    @ApiImplicitParam(value = "更新${comments}",paramType = "body",dataType = "${className}UpdateReq")
-    @PatchMapping
-    public AjaxResult update(@RequestBody ${className}UpdateReq updateReq) {
-        AjaxResult result = new AjaxResult();
-        ${className} updateData =${classname}Service.selectById(updateReq.get${pk.attrName}() );
-        CglibBeanCopierUtils.copyProperties(updateReq,updateData);
-        ${classname}Service.updateByIdSelective(updateData);
-        result.successResult(Constants.SYS_SUCCESS,null);
-        return result;
-    }
 
 
 

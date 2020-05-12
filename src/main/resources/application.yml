@@ -2,9 +2,9 @@ server:
     port: 8886
 spring:
     datasource:
-        url: jdbc:mysql://xxxxxxxx:3306/xxxxx?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
-        username: root
-        password: xxxxxxx
+        url: jdbc:mysql://rm-wz9gs8dl3zz9p9gtl8o.mysql.rds.aliyuncs.com:3306/eos-dev?useUnicode=true&useSSL=false&characterEncoding=utf8&allowMultiQueries=true
+        username: miniso
+        password: Miniso1@3
         driver-class-name: com.mysql.jdbc.Driver
         type: com.alibaba.druid.pool.DruidDataSource
         initialSize: 5

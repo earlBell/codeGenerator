@@ -1,12 +1,11 @@
-package ${package}.vo.req.${modulename};
+package ${package}.${modulename}.dto.req ;
 
-import java.io.Serializable;
-import io.swagger.annotations.ApiModel;
+
+import com.miniso.common.dto.PageDto;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import ${package}.query.BaseQueryObject;
-
-import java.util.Date;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 
 #if(${hasBigDecimal})
@@ -20,9 +19,11 @@ import java.math.BigDecimal;
  * @author ${author}
  * @date ${datetime}
  */
-@ApiModel(value="${package}.vo.req.${modulename}.${className}PageReq")
 @Data
-public class ${className}PageReq extends BaseQueryObject implements Serializable {
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+public class ${className}Page extends PageDto {
+
 	private static final long serialVersionUID = 1L;
 	
 

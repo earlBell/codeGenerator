@@ -1,20 +1,23 @@
-package ${package}.service.impl.${modulename};
+package ${package}.${modulename}.service.impl ;
 
+
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import ${package}.backend.base.BaseServiceImpl;
+import ${package}.${modulename}.dto.req.${className}Page;
+import ${package}.${modulename}.dto.resp.${className}PageResp;
+import ${package}.${modulename}.mapper.${className}Mapper;
+import ${package}.${modulename}.service.${className}Service;
+import ${package}.entity.${className};
 import lombok.extern.slf4j.Slf4j;
-import ${package}.dao.${modulename}.${className}Mapper;
-import ${package}.model.${modulename}.${className};
-import ${package}.base.BaseServiceImpl;
-import ${package}.service.${modulename}.${className}Service;
-import ${package}.vo.req.${modulename}.*;
-import ${package}.vo.resp.${modulename}.*;
-import com.github.pagehelper.PageInfo;
-import com.github.pagehelper.PageHelper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-
+import static com.miniso.common.enums.CommonEnum.Language.EN;
 
 /**
  * ${comments}
@@ -28,12 +31,13 @@ public class ${className}ServiceImpl extends BaseServiceImpl<${className}Mapper 
 
 
     @Override
-    @Transactional(readOnly = true)
-    public PageInfo<${className}PageResp> pageList(${className}PageReq pageReq) {
-        PageHelper.startPage(pageReq.getPageNum(),pageReq.getPageSize());
-        List<${className}PageResp> list = this.mapper.allList(pageReq);
-        return new PageInfo(list);
+    @Transactional(readOnly = true, isolation = Isolation.REPEATABLE_READ, rollbackFor = Throwable.class)
+    public IPage<${className}PageResp> page(${className}Page page) {
+        IPage<${className}PageResp> pageInfo = mapper.page(new Page<>(page.getPageNo(), page.getPageSize()), page);
+        if (StringUtils.equals(EN.getCode(),page.getLang())  ) {
+            pageInfo.getRecords().forEach(data->data.setIsEnglish(Boolean.TRUE));
+        }
+        return pageInfo;
     }
-
 
 }

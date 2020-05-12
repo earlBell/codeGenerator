@@ -1,7 +1,10 @@
 package com.breakearl.code.utils;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import static com.breakearl.code.utils.LocalDateUtil.YMD;
 
 /**
 * 基于 JDK 8 time包的时间工具类
@@ -65,7 +68,7 @@ public final class TimeUtils {
      * @return
      */
     public static String getCurrentDatetime() {
-        return DEFAULT_DATETIME_FORMATTER.format(LocalDateTime.now());
+        return LocalDateTime.now().format(YMD);
     }
 
     /**

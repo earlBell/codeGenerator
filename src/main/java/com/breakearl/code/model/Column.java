@@ -8,6 +8,8 @@ package com.breakearl.code.model;
 public class Column  {
 	//列名
     private String columnName;
+	//columnName大写版本
+	private String upColumnName;
     //列名类型
     private String dataType;
     //列名备注
@@ -63,5 +65,13 @@ public class Column  {
 	}
 	public void setExtra(String extra) {
 		this.extra = extra;
+	}
+
+	public String getUpColumnName() {
+		return upColumnName;
+	}
+
+	public void setUpColumnName(String upColumnName) {
+		this.upColumnName = upColumnName;
 	}
 }

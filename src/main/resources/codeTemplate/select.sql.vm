@@ -1,0 +1,7 @@
+SELECT
+    #foreach($column in $columns)
+       #set($varName=$varName+${modulename}+"."+$column.columnName+",")
+　　#end
+　　　　#set($varName=$varName.substring(0,$varName.lastIndexOf(',')))
+　　　　${varName}
+FROM ${tableName} ${modulename}

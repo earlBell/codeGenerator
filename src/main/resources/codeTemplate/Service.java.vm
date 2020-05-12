@@ -1,11 +1,12 @@
-package ${package}.service.${modulename};
+package ${package}.${modulename}.service ;
 
 import java.util.List;
-import ${package}.service.BaseService;
-import ${package}.model.${modulename}.${className};
-import ${package}.vo.req.${modulename}.*;
-import ${package}.vo.resp.${modulename}.*;
-import com.github.pagehelper.PageInfo;
+
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import ${package}.backend.base.BaseService;
+import ${package}.${modulename}.dto.req.${className}Page;
+import ${package}.${modulename}.dto.resp.${className}PageResp;
+import ${package}.entity.${className};
 
 /**
  * ${comments}服务
@@ -17,10 +18,10 @@ public interface ${className}Service extends BaseService <${className}> {
 
 
     /**
-     * ${comments}分页列表
-     * @param pageReq 请求参数
-     * @return
+     * 分页
+     * @param page 分页查询参数
+     * @return 分页列表
      */
-    PageInfo<${className}PageResp> pageList(${className}PageReq pageReq);
+    IPage<${className}PageResp> page(${className}Page page);
 
 }

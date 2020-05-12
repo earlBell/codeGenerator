@@ -1,13 +1,13 @@
-package ${package}.dao;
+package ${package}.${modulename}.mapper;
 
-import java.util.List;
-import java.util.Map;
-import ${package}.base.BaseMapper;
-import ${package}.model.${modulename}.${className};
 import org.apache.ibatis.annotations.Param;
-import ${package}.vo.req.${modulename}.${className}PageReq;
-import ${package}.vo.resp.${modulename}.${className}PageResp;
-
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import ${package}.${modulename}.dto.req.${className}Page;
+import ${package}.${modulename}.dto.resp.${className}PageResp;
+import ${package}.entity.${className};
 
 /**
  * ${comments}
@@ -20,9 +20,10 @@ public interface ${className}Mapper  extends BaseMapper<${className}> {
 
     /**
      * ${comments}分页列表
-     * @param pageReq 请求参数
+     * @param page 分页参数
+     * @param params 请求参数
      * @return
      */
-    List<${className}PageResp> allList(${className}PageReq pageReq);
+    IPage<${className}PageResp> page(Page page,@Param("params") ${className}Page params);
 
 }

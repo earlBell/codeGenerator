@@ -1,14 +1,15 @@
-package ${package}.model.${modulename};
+package ${package}.entity;
 
 import java.io.Serializable;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
 import java.util.Date;
-
-import javax.persistence.Table;
-import javax.persistence.Id;
 
 #if(${hasBigDecimal})
 import java.math.BigDecimal;
@@ -17,24 +18,36 @@ import java.math.BigDecimal;
 
 /**
  * ${comments}
- * 
+ *
  * @author ${author}
  * @date ${datetime}
  */
-@ApiModel(value="${package}.model.${modulename}.${className}")
 @Data
-@Table(name="${tableName}")
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
+@TableName("${tableName}")
 public class ${className} implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 #foreach ($column in $columns)
-	#if($column.comments.length() > 0 )
-	@ApiModelProperty(value="$column.comments")
-	#end
-	#if($pk && $pk.attrname == $column.attrname)
-	@Id
-	#end
-	private $column.attrType $column.attrname;
+#if($column.comments.length() > 0 )
+/**
+* ${column.comments}
+*/
 #end
+#if($pk && $pk.attrname == $column.attrname)
+@TableId(value = "${column.columnName}" )
+#else
+@TableField("${column.columnName}")
+#end
+private $column.attrType $column.attrname;
+
+#end
+
+public static class Field {
+	#foreach ($column in $columns)
+	public static final String ${column.upColumnName} =  "${column.columnName}";
+	#end
+}
 
 }

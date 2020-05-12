@@ -1,9 +1,13 @@
-package ${package}.vo.req.${modulename};
+package ${package}.${modulename}.dto.req;
 
 import java.io.Serializable;
-import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.miniso.common.dto.BaseDto;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.util.Date;
 
@@ -19,9 +23,9 @@ import java.math.BigDecimal;
  * @author ${author}
  * @date ${datetime}
  */
-@ApiModel(value="${package}.vo.resp.${modulename}.${className}PageResp")
 @Data
-public class ${className}PageResp implements Serializable {
+@ToString(callSuper = true)
+public class ${className}PageResp extends BaseDto implements Serializable   {
 	private static final long serialVersionUID = 1L;
 	
 #foreach ($column in $columns)

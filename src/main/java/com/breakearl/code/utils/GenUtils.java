@@ -35,6 +35,7 @@ public class GenUtils {
 		templates.add("codeTemplate/ServiceImpl.java.vm");
 		templates.add("codeTemplate/Mapper.java.vm");
 		templates.add("codeTemplate/Mapper.xml.vm");
+		templates.add("codeTemplate/select.sql.vm");
 
 		templates.add("codeTemplate/PageReq.java.vm");
 		templates.add("codeTemplate/PageResp.java.vm");
@@ -65,6 +66,7 @@ public class GenUtils {
 		for(Map<String, String> column : columns){
 			Column columnEntity = new Column();
 			columnEntity.setColumnName(column.get("columnName"));
+			columnEntity.setUpColumnName(columnEntity.getColumnName().toUpperCase());
 			columnEntity.setDataType(column.get("dataType"));
 			columnEntity.setComments(column.get("columnComment"));
 			columnEntity.setExtra(column.get("extra"));
@@ -170,39 +172,42 @@ public class GenUtils {
 	 */
 	public static String getFileName(String template, String className, String packageName,String modulename){
 		String packagePath =  "java" + File.separator;
-		if(StringUtils.isNotBlank(packageName)){
+/*		if(StringUtils.isNotBlank(packageName)){
 			packagePath += packageName.replace(".", File.separator) + File.separator;
-		}
+		}*/
 		if(template.contains("Entity.java.vm")){
-			return packagePath + File.separator+"model" +File.separator+ modulename + File.separator + className + ".java";
+			return packagePath + File.separator + className + ".java";
 		}
 		if(template.contains("Controller.java.vm")){
 			return packagePath + "controller" + File.separator + className + "Controller.java";
 		}
 		if(template.contains("Service.java.vm")){
-			return packagePath + "service" +File.separator+ modulename  + File.separator + className + "Service.java";
+			return packagePath + "service"    + File.separator + className + "Service.java";
 		}
 		if(template.contains("ServiceImpl.java.vm")){
-			return packagePath + "service" +File.separator+ modulename  + File.separator + className + "ServiceImpl.java";
+			return packagePath + "service"   + File.separator + className + "ServiceImpl.java";
 		}
 		if(template.contains("Mapper.java.vm")){
-			return packagePath + "dao" + File.separator + className + "Mapper.java";
+			return packagePath + "mapper" + File.separator + className + "Mapper.java";
 		}
 		if(template.contains("Mapper.xml.vm")){
 			return packagePath + File.separator + className + "Mapper.xml";
 		}
+		if(template.contains("select.sql.vm")){
+			return "sql" + File.separator + className + ".sql";
+		}
 
 		if(template.contains("SaveReq.java.vm")){
-			return packagePath + File.separator+"model" +File.separator+ modulename + File.separator + className +  "SaveReq.java";
+			return packagePath + File.separator+"dto"  + File.separator + className +  "SaveReq.java";
 		}
 		if(template.contains("UpdateReq.java.vm")){
-			return packagePath + File.separator+"model" +File.separator+ modulename + File.separator + className +  "UpdateReq.java";
+			return packagePath + File.separator+"dto"   + File.separator + className +  "UpdateReq.java";
 		}
 		if(template.contains("PageReq.java.vm")){
-			return packagePath + File.separator+"model" +File.separator+ modulename + File.separator + className +  "PageReq.java";
+			return packagePath + File.separator+"dto"   + File.separator + className +  "Page.java";
 		}
 		if(template.contains("PageResp.java.vm")){
-			return packagePath + File.separator+"model" +File.separator+ modulename + File.separator + className + "PageResp.java";
+			return packagePath + File.separator+"dto"   + File.separator + className + "PageResp.java";
 		}
 		return null;
 	}
