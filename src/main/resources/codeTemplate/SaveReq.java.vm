@@ -1,9 +1,9 @@
-package ${package}.vo.req.${modulename};
+package ${package}.${modulename}.dto.req;
 
 import java.io.Serializable;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.util.Date;
 
@@ -14,21 +14,26 @@ import java.math.BigDecimal;
 
 
 /**
- * ${comments}保存请求
+ * ${comments} 保存请求
  * 
  * @author ${author}
  * @date ${datetime}
  */
-@ApiModel(value="${package}.vo.req.${modulename}.${className}SaveReq")
 @Data
+@Accessors(chain = true)
 public class ${className}SaveReq implements Serializable {
-	private static final long serialVersionUID = 1L;
-	
+		private static final long serialVersionUID = 1L;
+
 #foreach ($column in $columns)
-	#if($column.comments.length() > 0 )
-	@ApiModelProperty(value="$column.comments")
-	#end
-	private $column.attrType $column.attrname;
+#if($pk && $pk.attrname == $column.attrname)
+#else
+#if($column.comments.length() > 0  )
+@ApiModelProperty(value="$column.comments")
 #end
+private $column.attrType $column.attrname;
+
+#end
+#end
+
 
 }
