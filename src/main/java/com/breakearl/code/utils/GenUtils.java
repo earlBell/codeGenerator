@@ -110,7 +110,7 @@ public class GenUtils {
 		map.put("author", config.getString("author"));
 		map.put("email", config.getString("email"));
 		map.put("modulename", config.getString("modulename"));
-		map.put("datetime",  TimeUtils.getCurrentDatetime());
+		map.put("datetime",  TimeUtils.getCurrentDate());
         VelocityContext context = new VelocityContext(map);
         
         //获取模板列表

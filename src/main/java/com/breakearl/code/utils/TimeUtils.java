@@ -1,7 +1,9 @@
 package com.breakearl.code.utils;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 /**
 * 基于 JDK 8 time包的时间工具类
@@ -13,6 +15,7 @@ public final class TimeUtils {
      * 获取默认时间格式: yyyy-MM-dd HH:mm:ss
      */
     private static final DateTimeFormatter DEFAULT_DATETIME_FORMATTER = TimeFormat.LONG_DATE_PATTERN_LINE.formatter;
+    public final static DateTimeFormatter YMD  = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.CHINA);
 
     //防止实例化
     private TimeUtils() {  }
@@ -64,8 +67,8 @@ public final class TimeUtils {
      *
      * @return
      */
-    public static String getCurrentDatetime() {
-        return DEFAULT_DATETIME_FORMATTER.format(LocalDateTime.now());
+    public static String getCurrentDate() {
+        return  LocalDate.now().format(YMD);
     }
 
     /**
