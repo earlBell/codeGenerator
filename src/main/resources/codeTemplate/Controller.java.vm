@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @date ${datetime}
  */
 @RestController
-@Api(value = "backend${className}", description = "${comments}", tags = {"backend${className}"})
-@RequestMapping(value = "/backend/${classname}", produces = {"application/json"})
+@Api(value = "${className}", description = "${comments}", tags = {"${className}"})
+@RequestMapping(value = "/${classname}", produces = {"application/json"})
 @Slf4j
 public class ${className}Controller {
 
@@ -31,7 +31,7 @@ public class ${className}Controller {
 	private ${className}Service ${classname}Service;
 
     @PostMapping("/page")
-    @ApiOperation("获取分页列表")
+    @ApiOperation(value = "获取分页列表", notes = "获取分页列表",response = ${className}PageResp.class)
     public ResultMsg<IPage<${className}PageResp>> page(@RequestBody ${className}Page page) {
         return ResultMsg.ok(this.${classname}Service.page(page));
     }

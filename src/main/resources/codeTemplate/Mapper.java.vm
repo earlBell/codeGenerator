@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import ${package}.${modulename}.dto.req.${className}Page;
 import ${package}.${modulename}.dto.resp.${className}PageResp;
-import ${package}.entity.${className};
+import ${package}.${modulename}.entity.${className};
 
 /**
  * ${comments}

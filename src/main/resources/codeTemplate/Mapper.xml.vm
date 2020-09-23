@@ -4,7 +4,7 @@
 <mapper namespace="${package}.${modulename}.mapper.${className}Mapper">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="${package}.${modulename}.${className}" id="${classname}Map">
+    <resultMap type="${package}.${modulename}.entity.${className}" id="${classname}Map">
 #foreach($column in $columns)
         <result property="${column.attrname}" column="${column.columnName}"/>
 #end
@@ -13,7 +13,8 @@
 
     <sql id="listWhere">
         <trim prefix="WHERE" prefixOverrides="AND">
-            <if test="key != null and key.trim() != ''">
+            <if test="params.key != null and params.key.trim() != ''">
+                AND   LIKE CONCAT('%',#{params.key},'%')
             </if>
         </trim>
     </sql>

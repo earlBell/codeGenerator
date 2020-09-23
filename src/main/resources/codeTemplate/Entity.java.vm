@@ -23,7 +23,6 @@ import java.math.BigDecimal;
  * @date ${datetime}
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("${tableName}")
 public class ${className} implements Serializable {
@@ -36,7 +35,7 @@ public class ${className} implements Serializable {
 */
 #end
 #if($pk && $pk.attrname == $column.attrname)
-@TableId(value = "${column.columnName}" )
+@TableId(value = "${column.columnName}", type = IdType.AUTO)
 #else
 @TableField("${column.columnName}")
 #end

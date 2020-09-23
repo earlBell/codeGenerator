@@ -3,10 +3,10 @@ package ${package}.${modulename}.service ;
 import java.util.List;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import ${package}.backend.base.BaseService;
+import ${package}.${modulename}.base.IBaseService;
 import ${package}.${modulename}.dto.req.${className}Page;
 import ${package}.${modulename}.dto.resp.${className}PageResp;
-import ${package}.entity.${className};
+import ${package}.${modulename}.entity.${className};
 
 /**
  * ${comments}服务

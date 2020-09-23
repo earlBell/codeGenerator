@@ -24,7 +24,6 @@ import java.math.BigDecimal;
  * @date ${datetime}
  */
 @Data
-@ToString(callSuper = true)
 public class ${className}PageResp extends BaseDto implements Serializable   {
 	private static final long serialVersionUID = 1L;
 	

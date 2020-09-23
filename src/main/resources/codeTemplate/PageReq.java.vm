@@ -20,8 +20,6 @@ import java.math.BigDecimal;
  * @date ${datetime}
  */
 @Data
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
 public class ${className}Page extends PageDto {
 
 	private static final long serialVersionUID = 1L;
