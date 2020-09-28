@@ -14,7 +14,7 @@ import ${package}.${modulename}.entity.${className};
  * @author ${author}
  * @date ${datetime}
  */
-public interface ${className}Service extends BaseService <${className}> {
+public interface ${className}Service extends IBaseService <${className}> {
 
 
     /**

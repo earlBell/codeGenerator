@@ -35,7 +35,7 @@ public class ${className} implements Serializable {
 */
 #end
 #if($pk && $pk.attrname == $column.attrname)
-@TableId(value = "${column.columnName}", type = IdType.AUTO)
+@TableId(value = "${column.columnName}", type = IdType.ID_WORKER)
 #else
 @TableField("${column.columnName}")
 #end
