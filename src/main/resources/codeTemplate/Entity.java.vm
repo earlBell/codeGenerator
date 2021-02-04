@@ -21,7 +21,6 @@ import java.math.BigDecimal;
  * @author ${author}
  * @date ${datetime}
  */
-@ApiModel(value="${package}.model.${modulename}.${className}")
 @Data
 @Table(name="${tableName}")
 public class ${className} implements Serializable {

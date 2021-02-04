@@ -19,7 +19,6 @@ import java.math.BigDecimal;
  * @author ${author}
  * @date ${datetime}
  */
-@ApiModel(value="${package}.vo.req.${modulename}.${className}SaveReq")
 @Data
 public class ${className}SaveReq implements Serializable {
 	private static final long serialVersionUID = 1L;

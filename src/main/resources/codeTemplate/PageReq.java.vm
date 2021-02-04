@@ -20,7 +20,6 @@ import java.math.BigDecimal;
  * @author ${author}
  * @date ${datetime}
  */
-@ApiModel(value="${package}.vo.req.${modulename}.${className}PageReq")
 @Data
 public class ${className}PageReq extends BaseQueryObject implements Serializable {
 	private static final long serialVersionUID = 1L;

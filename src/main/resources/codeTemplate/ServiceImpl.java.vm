@@ -32,7 +32,7 @@ public class ${className}ServiceImpl extends BaseServiceImpl<${className}Mapper 
     public PageInfo<${className}PageResp> pageList(${className}PageReq pageReq) {
         PageHelper.startPage(pageReq.getPageNum(),pageReq.getPageSize());
         List<${className}PageResp> list = this.mapper.allList(pageReq);
-        return new PageInfo(list);
+        return new PageInfo <> (list);
     }
 
 

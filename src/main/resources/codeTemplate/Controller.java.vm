@@ -34,7 +34,7 @@ public class ${className}Controller {
 	@Autowired
 	private ${className}Service ${classname}Service;
 
-    @ApiOperation(value = "${comments}分页列表", notes = "${comments}分页列表")
+    @ApiOperation(value = "${comments}分页列表", notes = "${comments}分页列表",response = ${className}PageResp.class)
     @GetMapping(value="/page" )
     public AjaxResult list(${className}PageReq pageReq ){
         AjaxResult result = new AjaxResult();
@@ -53,7 +53,6 @@ public class ${className}Controller {
     }
 
     @ApiOperation(value = "保存${comments}", notes = "保存${comments}" )
-    @ApiImplicitParam(value = "保存${comments}",paramType = "body",dataType = "${className}SaveReq")
     @PostMapping
     public AjaxResult save(@RequestBody ${className}SaveReq saveReq) {
         AjaxResult result = new AjaxResult();
@@ -66,7 +65,6 @@ public class ${className}Controller {
     }
 
     @ApiOperation(value = "更新${comments}", notes = "更新${comments}" )
-    @ApiImplicitParam(value = "更新${comments}",paramType = "body",dataType = "${className}UpdateReq")
     @PatchMapping
     public AjaxResult update(@RequestBody ${className}UpdateReq updateReq) {
         AjaxResult result = new AjaxResult();
